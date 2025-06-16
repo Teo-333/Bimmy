@@ -1,0 +1,50 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.rulers": [80, 100],
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "conventionalCommits.scopes": [
+    "frontend",
+    "backend",
+    "api",
+    "ui",
+    "auth",
+    "db",
+    "config",
+    "docker",
+    "docs",
+    "repo",
+    "deps",
+    "security",
+    "performance"
+  ],
+  "git.enableCommitSigning": false,
+  "git.confirmSync": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/.git": true
+  },
+  "files.associations": {
+    "*.env*": "dotenv"
+  }
+} 
