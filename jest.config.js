@@ -6,6 +6,7 @@ module.exports = {
     '**/__tests__/**/*.{js,jsx,ts,tsx}',
     '**/*.(test|spec).{js,jsx,ts,tsx}',
   ],
+  testPathIgnorePatterns: ['/node_modules/', '/src/backend/'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
@@ -13,6 +14,7 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/__tests__/**',
+    '!src/backend/**',
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],

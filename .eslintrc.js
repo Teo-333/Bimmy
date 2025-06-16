@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  ignorePatterns: ['node_modules/', '**/dist/**', '**/build/**', '**/*.min.js'],
   env: {
     browser: true,
     es2021: true,
