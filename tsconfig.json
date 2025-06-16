@@ -41,6 +41,7 @@
     "dist",
     "build",
     "coverage",
+    "src/backend/**/*",
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
