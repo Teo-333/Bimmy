@@ -30,10 +30,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/frontend/*": ["./src/frontend/*"],
-      "@/backend/*": ["./src/backend/*"]
+      "@/frontend/*": ["frontend/*"],
+      "@/backend/*": ["backend/*"]
     }
   },
   "include": ["src/__tests__/**/*", "src/setupTests.ts", "*.config.ts", "*.config.js"],
-  "exclude": ["node_modules", "dist", "build", "coverage", "src/frontend/**/*", "src/backend/**/*"]
+  "exclude": ["node_modules", "dist", "build", "coverage", "frontend/**/*", "backend/**/*"]
 }
