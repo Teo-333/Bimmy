@@ -19,7 +19,6 @@
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "removeComments": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -35,16 +34,6 @@
       "@/backend/*": ["./src/backend/*"]
     }
   },
-  "include": ["src/**/*", "**/*.ts", "**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    "src/backend/**/*",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ]
+  "include": ["src/__tests__/**/*", "src/setupTests.ts", "*.config.ts", "*.config.js"],
+  "exclude": ["node_modules", "dist", "build", "coverage", "src/frontend/**/*", "src/backend/**/*"]
 }

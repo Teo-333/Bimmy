@@ -10,7 +10,7 @@ jobs:
   lint-commits:
     name: Validate Commit Messages
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,8 +26,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate commit messages
+      - name: Validate commit messages (PR)
+        if: github.event_name == 'pull_request'
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
+      - name: Validate commit messages (Push)
+        if: github.event_name == 'push'
+        run: npx commitlint --from HEAD~1 --to HEAD --verbose
 
   code-quality:
     name: Code Quality Checks
@@ -44,6 +49,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Frontend dependencies
+        run: cd src/frontend && npm ci
+
+      - name: Install Backend dependencies
+        run: cd src/backend && npm ci
 
       - name: Run ESLint
         run: npm run lint:check
@@ -62,14 +73,24 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Check branch naming convention
-        uses: deepakputhraya/action-branch-name@master
-        with:
-          regex: '^(feature|bugfix|hotfix|release|chore|docs)\/[a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+$'
-          allowed_prefixes: 'feature,bugfix,hotfix,release,chore,docs'
-          ignore: main,develop
-          min_length: 5
-          max_length: 50
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+          echo "Checking branch name: $BRANCH_NAME"
+
+          # Check if branch matches the expected pattern
+          if [[ ! "$BRANCH_NAME" =~ ^(feature|bugfix|hotfix|release|chore|docs)\/[a-zA-Z0-9\-]+$ ]]; then
+            echo "❌ Branch name '$BRANCH_NAME' doesn't follow the naming convention!"
+            echo "Expected format: <type>/<description>"
+            echo "Types: feature, bugfix, hotfix, release, chore, docs"
+            echo "Examples: feature/user-authentication, bugfix/login-error, chore/update-dependencies"
+            exit 1
+          fi
+
+          echo "✅ Branch name '$BRANCH_NAME' follows the naming convention!"
 
   security-scan:
     name: Security Scan
@@ -86,6 +107,12 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install Frontend dependencies
+        run: cd src/frontend && npm ci
+
+      - name: Install Backend dependencies
+        run: cd src/backend && npm ci
 
       - name: Run security audit
         run: npm audit --audit-level moderate

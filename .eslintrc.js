@@ -12,6 +12,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
@@ -35,6 +38,20 @@ module.exports = {
       files: ['**/*.test.{js,ts,jsx,tsx}', '**/*.spec.{js,ts,jsx,tsx}'],
       env: {
         jest: true,
+      },
+    },
+    {
+      files: ['**/*.{jsx,tsx}'],
+      env: {
+        browser: true,
+      },
+      rules: {
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            varsIgnorePattern: '^React$',
+          },
+        ],
       },
     },
   ],
